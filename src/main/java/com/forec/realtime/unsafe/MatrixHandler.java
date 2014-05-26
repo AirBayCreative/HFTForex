@@ -1,5 +1,7 @@
 package com.forec.realtime.unsafe;
 
+import org.apache.log4j.Logger;
+
 /**
  * Not thread safe
  * @author Ettore Majorana
@@ -9,10 +11,9 @@ package com.forec.realtime.unsafe;
 @SuppressWarnings("restriction")
 public class MatrixHandler {
 
+	private static final Logger log = Logger.getLogger(MatrixHandler.class);
 	protected final static long UNSET = -1l;
 	private final static long LONG_SIZE_IN_BYTES = 8;
-	private static final IllegalArgumentException ILLEGAL_ARGUMENT_EXCEPTION = 
-			new IllegalArgumentException("Row in input is greater than the maximum allowed");
 	private final long[] indexes;
 	private final int rows;
 	private final int columns;
@@ -31,14 +32,14 @@ public class MatrixHandler {
 
 	protected void set(int row, int column, long value){
 		if(row >= rows){
-			throw ILLEGAL_ARGUMENT_EXCEPTION;
+			throw new IllegalArgumentException("Row in input is greater than maximum allowed");
 		}
 		if(column >= columns){
-			throw ILLEGAL_ARGUMENT_EXCEPTION;
+			throw new IllegalArgumentException("Column in input is greater than maximum allowed");
 		}
 		row = shiftedRow(row);
 		long offset = calcOffset(row,column);
-		System.out.println(String.format("set [%d,%d] = %d",row,column,value));
+		log.debug(String.format("set [%d,%d] = %d",row,column,value));
 		UnsafeHolder.getUnsafe().putLong(offset, value);
 	}
 	
@@ -46,7 +47,7 @@ public class MatrixHandler {
 		row = shiftedRow(row);
 		long offset = calcOffset(row, column);
 		long value = UnsafeHolder.getUnsafe().getLong(offset);
-		System.out.println(String.format("get [%d,%d] = %d",row,column,value));
+		log.debug(String.format("get [%d,%d] = %d",row,column,value));
 		return value;
 	}
 

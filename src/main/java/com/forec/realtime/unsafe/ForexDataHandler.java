@@ -38,7 +38,7 @@ public class ForexDataHandler extends MatrixHandler{
 		if(get(indexof_lastRecord, LOW) > lastValue || get(indexof_lastRecord, 2) == UNSET)
 			set(indexof_lastRecord, 2, lastValue);
 		set(indexof_lastRecord, CLOSE, lastValue);
-		//TODO update volume shomehow set(normalizedRows(rows), VOL, ???)
+		//TODO update volume shomehow set(indexof_lastRecord, VOL, ???)
 		set(indexof_lastRecord, TS, timestamp);
 		return true;
 	}

@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.forec.realtime.unsafe.ForexDataHandler;
 
 
-public class DataMatrix {
+public class TestForexData {
 
 	static ForexDataHandler handler;
 	
@@ -31,6 +31,7 @@ public class DataMatrix {
 	
 	@Test
 	public void onInit() {
+		System.out.println("/--------- TEST START ------------/");
 		assertEquals(10,handler.getOpen(0));
 		assertEquals(22,handler.getHigh(1));
 		assertEquals(29,handler.getLow(2));
@@ -41,6 +42,7 @@ public class DataMatrix {
 	
 	@Test
 	public void onUpdateWithinTheMinute() {
+		System.out.println("/--------- TEST START ------------/");
 		handler.update(32, 35);
 		assertEquals(32, handler.getLastClose());
 	}

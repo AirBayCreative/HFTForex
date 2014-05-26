@@ -1,7 +1,8 @@
 package com.forec.realtime;
 
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
+import com.forec.data.DataProvider;
+import com.forec.data.DataServiceSettings;
+
 
 
 /**
@@ -12,9 +13,17 @@ import java.util.stream.IntStream;
  */
 public class Main {
 	
-	public static void main(String[] args) {
-		int sum = IntStream.range(0,10).filter(n -> n > 4).map(n -> n*2).reduce(0,(a,b) -> a + b);
-		System.out.println(sum);
+	public static void main(String[] args) throws Exception {
+		AlgorithmSettings algoSetting = AlgorithmSettings.fromPropertiesFile(args[0]);
+		DataServiceSettings dataSettings = DataServiceSettings.fromPropertiesFile(args[1]);
+		DataProvider dataProvider = null;
+		RequestCommunicator reqComm = new RequestCommunicator(dataSettings);
+		AlgorithmWorker worker = new AlgorithmWorker(reqComm);
+		Algorithm algo = new Algorithm(algoSetting, worker, dataProvider);
+		//read data service settings
+		//fetch data provider from somewhere
+		//create new algo worker
+		//create new algorithm
 		
 	}
 }
