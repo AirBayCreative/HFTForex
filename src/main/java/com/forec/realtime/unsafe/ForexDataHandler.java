@@ -1,5 +1,7 @@
 package com.forec.realtime.unsafe;
 
+//Thread safety must be improved. For now this is just a raw implementation
+
 public class ForexDataHandler extends MatrixHandler{
 
 	public static final long ONE_MINUTE = 1000l*60l;
